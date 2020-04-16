@@ -5,19 +5,20 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 
-//la ruta del schema de usuario
-const Usuario = require('./models/usuario')
+
 
 
 const app = express()
 const port = process.env.PORT || 3001
+
+const  UsuarioControll  =  require('.//src/App/controllers/Usuario')
 
 
 app.use(bodyParser.urlencoded({extended: false }))
 app.use(bodyParser.json())
 
 app.get('/api/usuario', (req, res) => {
-    res.status(200, {usuario: []} )
+ 
 
 })
 
@@ -25,6 +26,7 @@ app.get('/api/usuario/:nombre_autor', (req, res) =>{
 let nombre_autor = req.params.nombre_autor
 
 Usuario.find(nombre_autor, (err, usuario) => {
+    
 
     if (err) return res.status(500).send({message: `Error al realizar la peticion: ${err} `}) 
 
