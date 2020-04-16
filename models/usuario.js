@@ -9,6 +9,7 @@ const UsuarioSchema = Schema({
     titulo: String,
     texto: String,
     comentarios: String,
+    comment:{ type: String, enum: ['nicknameAutor', 'contenido', 'feha']}
  
 })
 

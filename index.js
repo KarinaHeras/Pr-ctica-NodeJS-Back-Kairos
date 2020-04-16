@@ -49,6 +49,7 @@ app.post('api/usuario', (req, res) => {
     usuario.titulo = req.body.titulo
     usuario.texto = req.body.texto
     usuario.comentarios = req.body.comentarios
+    usuario.commet = re.body.commet
 
     usuario.save((err, UsuarioSchema) => {
         if (err) res.status(500).send({message: `Error al salvar en la base de datos: ${err} `}) 
@@ -63,10 +64,26 @@ app.post('api/usuario', (req, res) => {
 })
 
 app.put('/api/usuario/:nombreId', (req, res) => {
+ let nombreId = req.params.nombreId
+  let update = req.body
+ Usuario.findByIdAndUpdate(nombreId, update, (err, usuarioUpdate =>{
+    if (err) res.status(500).send({message: ` Error al actualizar el  usuario: ${err}`})
+    res.status(200).send({ usuario: usuarioUpdate })
+ }) )
 
 })
 app.delete('/api/nombreId', (req, res) =>{
+ let nombreId = req.params.nombreId
+ 
 
+ Usuario.find(nombreId, (err, nombreId) => {
+     if (err) res.status(500).send({message: ` Error el buscar el usuario: ${err}`})
+ usuario.remove( err => {
+     if (err) res.status(500).send({message: ` Error el bosar el usuario: ${err}`})
+       res.status(200).send({menssage: `el usuario ha sido borrado`})
+
+
+    })
 })
 
 mongoose.connect('mongodb://localhost:27017/usuario', (err, res) => {
