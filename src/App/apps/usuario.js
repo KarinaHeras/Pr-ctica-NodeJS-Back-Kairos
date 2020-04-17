@@ -1,18 +1,16 @@
-class Usuario{
-    nombre_Autor;
-    nickname_Autor;
-    titulo;
-    texto;
-    comentarios;
+'use strict'
 
-}
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-class Usuario(nombre_Autor, nickname_Autor, titulo, texto,comentarios){
+const UsuarioSchema = Schema({
+    nombre_autor: String,
+    nickname_autor: String,
+    titulo: String,
+    texto: String,
+    comentarios: String,
+    comment:{ type: String, enum: ['nicknameAutor', 'contenido', 'feha']}
+ 
+})
 
-    this.nombre_Autor = nombre_Autor;
-    this.nickname_Autor = nickname_Autor;
-    this.titulo = titulo;
-    this.comentarios = comentarios;
-
-
-}
+module.exports = mongoose.model('Usuario', UsuarioSchema)
