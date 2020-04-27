@@ -3,7 +3,7 @@ Funcionalidad
 Se desea implementar un servicio para la gestión de un blog con persistencia y API REST. Las entradas del blog podrán tener comentarios y para evitar la publicación de aquellos que puedan ser ofensivos, el servicio deberá incluir internamente un validador.
 
 Las entidades de información que deberá gestionar el blog son:
-Post. Cada entrada contiene los siguientes campos: Nombre del autor, Nickname del autor, Titulo, Texto, Lista de comentarios.
+Post. Cada entrada contiene los siguientes campos: name del autor, Nickname del autor, Titulo, Texto, Lista de comentarios.
 Comment. Cada comentario contiene los siguientes campos: Nickname del autor del comentario, Contenido, Fecha del comentario.
 OffensiveWord: Cada palabra tendrá asociada un campo “level” indicando la gravedad de la palabra de 1 a 5.
 
@@ -21,22 +21,22 @@ Palabras ofensivas
 Creación, listado, borrado y modificación de una palabra ofensiva.
 
 Si el comentario que se intenta incorporar contiene alguna de las palabras ofensivas registradas en la BBDD, el comentario no se podrá crear. La petición REST será rechazada con un código de error y se devolverá un JSON con información sobre la palabra ofensiva (o palabras) y su nivel. Las palabras ofensivas estarán almacenadas en la BBDD. Si al arrancar la aplicación se detecta que no hay palabras ofensivas en la BBDD, la aplicación deberá insertar un juego de palabras por defecto.
-Control de usuarios
-La aplicación tiene que permitir varios tipos de usuarios:
+Control de users
+La aplicación tiene que permitir varios tipos de users:
 Autenticados:
-Administrador: Los usuarios de tipo admin podrán realizar cualquier operación de la API REST.
-Publisher: Los usuarios de tipo publisher podrán:
+Administrador: Los users de tipo admin podrán realizar cualquier operación de la API REST.
+Publisher: Los users de tipo publisher podrán:
 Crear entradas del blog. 
 Borrar y modificar únicamente las entradas que hayan creado ellos.
 Borrar comentarios de sus entradas.
 Añadir comentarios a otras entradas.
 No autenticado: Podrán consultar información pero no podrán añadir comentarios ni añadir posts.
 
-Cualquier usuario podrá registrarse en la aplicación y se le asignará el rol de “publisher”.  Para ello, se creará un endpoint de creación de usuarios. Para simplificar la implementación, un usuario no se puede borrar ni modificar.
+Cualquier user podrá registrarse en la aplicación y se le asignará el rol de “publisher”.  Para ello, se creará un endpoint de creación de users. Para simplificar la implementación, un user no se puede borrar ni modificar.
 
-Se deberá implementar un script Node.js llamado load_admins.js que se conectará a MongoDB y creará los usuarios admin cuando se ejecute. Los usuarios estarán en un fichero de texto.
+Se deberá implementar un script Node.js llamado load_admins.js que se conectará a MongoDB y creará los users admin cuando se ejecute. Los users estarán en un fichero de texto.
 
-El mecanismo de autenticación de usuarios puede será mediante Tokens JWT
+El mecanismo de autenticación de users puede será mediante Tokens JWT
 Aspectos técnicos
 La aplicación backend estará dividida en, al menos, 4 módulos Node: 
 app.js: Tendrá el servidor Express. 

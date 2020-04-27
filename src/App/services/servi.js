@@ -18,5 +18,32 @@ function createToken (user){
      return jwt.encode(payload, confidb.SECRET_TOKEN)
 
 }
+function decodeToken(token){
+    const decode = new Promise((resolve, reject) =>{
+        try{
+            const payload = jwt.decode(token, confidb.SECRET_TOKEN)
+            if(payload.ex < moment().unix()){
+                reject({
+                    status: 401,
+                    message: 'El token ha expirado'
 
-module.exports = createToken
+                })
+            }
+            resolve(payload.sub)
+        }catch(err) {
+            reject({
+                status: 500,
+                message:'invalid Token'
+            })
+
+        }
+    })
+
+    return decode
+}
+
+
+module.exports = {
+    createToken, 
+    decodeToken
+} 

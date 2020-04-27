@@ -1,13 +1,13 @@
-const express = require('express')
-const OffensiveValidator = require('../../middlewares/offensive-validator')
-const PostService = require('./service')
+'use strict'
+const express = require('express');
+const userService = require('./service.js')
 
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
     try{
-        const posts = await PostService.getAll();
-        res.status(200).json(posts);
+        const users = await usersService.getAll();
+        res.status(200).json(users);
     }catch(err) {
         console.log(err);
         res.status(500).send(err);
@@ -20,8 +20,8 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
     try {
         const id = req.params.id;
-        const post = await PostService.getById(id);
-        res.status(200).json(post);
+        const users = await usersService.getById(id);
+        res.status(200).json(users);
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
@@ -32,8 +32,8 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        const newPost = await PostService.addPost(req.body);
-        res.status(201).send(newPost);
+        const newUsers = await usersService.addUsers(req.body);
+        res.status(201).send(newUsers);
     }catch(err) {
         console.log(err);
         res.status(500).send(err);
@@ -45,12 +45,12 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
     try {
         const id = req.params.id;
-        const post = req.body;
-        const result = await PostService.updatePost(id, post);
+        const users  = req.body;
+        const result = await PostService.updateUsers(id, post);
         if (result !== null) {
             res.status(200).json(result);
         }else{
-            res.status(404).json({message: 'Recurso no encontrado'})
+            res.status(404).json({message: 'Usuario no encontrado'})
         }
     } catch (err) {
         console.log(err);
@@ -63,11 +63,11 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async(req, res, next) => {
     try {
         const id = req.params.id;
-        const result = await PostService.deletePost(id);
+        const result = await usersService.deleteUsers(id);
         if (result !== null) {
             res.status(200).json(result);
         }else{
-            res.status(404).json({message: 'Recurso no encontrado'})
+            res.status(404).json({message: 'Usuario no encontrado'})
         }
         
     } catch (err) {
@@ -84,8 +84,8 @@ router.put('/:id/comment', OffensiveValidator.checkwords, async(req, res, next) 
         const comment = req.body;
         console.log('id', id);
         console.log('comment', comment);
-        const postUpdate = await PostService.addComment(id, comment);
-        res.status(200).json(postUpdate);
+        const usersUpdate = await usersService.addComment(id, comment);
+        res.status(200).json(usersUpdate);
     } catch (err) {
         console.log(err);
         res.status(500).send(err);

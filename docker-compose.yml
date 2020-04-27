@@ -1,5 +1,11 @@
 version: '3'
 services:
+  Practica-NodeJS-Back-Kairos :
+    build:
+      context: .
+      dockerfile: Dockerfile-machine
+    networks:
+      - mongo_net
   my-mongodb:
     image: mongo:4.2.3-bionic
     container_name: my-mongodb

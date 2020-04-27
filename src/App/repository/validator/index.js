@@ -6,7 +6,7 @@ const conexion = require('../../controllers/Conexion')
 const port = process.env.PORT || 3001
 
 
-mongoose.connect('mongodb://localhost:27017/usuario', (err, res) => {
+mongoose.connect('mongodb://localhost:27017/user', (err, res) => {
     if(err){
         return console.log(`Error al conectar a la base de datos: ${err}`)
     }

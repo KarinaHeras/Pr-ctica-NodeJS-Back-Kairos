@@ -4,91 +4,91 @@
 
 
 
-//la ruta del schema de usuario
-const Usuario = require('../apps/usuario')
+//la ruta del schema de user
+const user = require('../apps/user')
 
 
-function getUsuario (req, res){
-    let nombre_autor = req.params.nombre_autor
+function getUser (req, res){
+    let author_name = req.params.author_name
 
-    Usuario.find(nombre_autor, (err, usuario) => {
+    user.find(author_name, (err, user) => {
         
     
         if (err) return res.status(500).send({message: `Error al realizar la peticion: ${err} `}) 
     
-            if (usuario) return res.status(404).send({message: `Error el nombre de autor no existe`})
+            if (user) return res.status(404).send({message: `Error el name de autor no existe`})
             
-                res.status(200).send({ usuario})
+                res.status(200).send({ user})
             
         
-}
+},
 
-function getUsuario (req, res){
-    Usuario.find({}, (err, usuario => {
+function getUser (req, res){
+    user.find({}, (err, user => {
         if(err) return res.status(500).send({ message: `Error al realizar la petición`})
-        if(!usuario) return res.send.status(404).send({ menssage: `No existe el Usuario`})
+        if(!user) return res.send.status(404).send({ menssage: `No existe el user`})
     
        }))
    
-       res.status(200, {usuario: []} )
+       res.status(200, {user: []} )
     
-}
+},
 
 
-function saveUsuario(req, res){
+function saveUser(req, res){
 
-    console.log('POST/api/usuario')
+    console.log('POST/api/user')
     console.log(req.body)
 
-    let usuario = new Usuario()
-    usuario.nombre_autor = req.body.nombre_autor
-    usuario.nickname_autor = req.body.nickname_autor
-    usuario.titulo = req.body.titulo
-    usuario.texto = req.body.texto
-    usuario.comentarios = req.body.comentarios
-    usuario.commet = re.body.commet
+    let user = new user()
+    user.nameAuthor = req.body.nameAuthor
+    user.nickname = req.body.nickname
+    user.title = req.body.title
+    user.text = req.body.text
+    user.content= req.body.content
+    user.commet = re.body.commet
 
-    usuario.save((err, UsuarioSchema) => {
+    user.save((err, userSchema) => {
         if (err) res.status(500).send({message: `Error al salvar en la base de datos: ${err} `}) 
         
           
             
-            res.status(200).send({usuario: UsuarioSchema})
+            res.status(200).send({user: userSchema})
         
     })
 
-}
+},
 
-function updateUsuario (req, res){
-    let nombreId = req.params.nombreId
+function updateUser (req, res){
+    let nameId = req.params.nameId
   let update = req.body
- Usuario.findByIdAndUpdate(nombreId, update, (err, usuarioUpdate =>{
-    if (err) res.status(500).send({message: ` Error al actualizar el  usuario: ${err}`})
-    res.status(200).send({ usuario: usuarioUpdate })
+ user.findByIdAndUpdate(nameId, update, (err, userUpdate =>{
+    if (err) res.status(500).send({message: ` Error al actualizar el  user: ${err}`})
+    res.status(200).send({ user: userUpdate })
  }) )
-}
+},
 
 
-function deleteUsuario (req, res){
-    let nombreId = req.params.nombreId
+function deleteUser (req, res){
+    let nameId = req.params.nameId
  
 
- Usuario.find(nombreId, (err, nombreId) => {
-     if (err) res.status(500).send({message: ` Error el buscar el usuario: ${err}`})
- usuario.remove( err => {
-     if (err) res.status(500).send({message: ` Error el bosar el usuario: ${err}`})
-       res.status(200).send({menssage: `el usuario ha sido borrado`})
+ user.find(nameId, (err, nameId) => {
+     if (err) res.status(500).send({message: ` Error el buscar el user: ${err}`})
+ user.remove( err => {
+     if (err) res.status(500).send({message: ` Error el bosar el user: ${err}`})
+       res.status(200).send({menssage: `el user ha sido borrado`})
 
 
     })
-}
+},
 
 
 module.exports = {
-    getUsuario,
-    getUsuario,
-    saveUsuario,
-    updateUsuario,
-    deleteUsuario
+    getUser,
+    getUser,
+    saveUser,
+    updateUser,
+    deleteUser
 
 }

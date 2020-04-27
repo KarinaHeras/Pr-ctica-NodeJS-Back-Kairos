@@ -1,4 +1,4 @@
-import OffensiveWordRepository from "./repository";
+const OffensiveWordRepository  = require("./repository")
 
 const OffensiveWordService = {};
 

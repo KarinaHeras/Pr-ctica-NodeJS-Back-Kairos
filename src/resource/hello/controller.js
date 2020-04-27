@@ -1,5 +1,5 @@
-import express from 'express';
-import HelloService from './service';
+const express = require('express')
+const HelloService = require('./service')
 
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-import OffensiveWord from './model';
+const OffensiveWord = require('./model')
 
 const OffensiveWordRepository = {};
 

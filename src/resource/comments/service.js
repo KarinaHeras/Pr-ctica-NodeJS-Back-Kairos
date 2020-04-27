@@ -1,4 +1,4 @@
-import CommentRepository from "./repository";
+const CommentRepository = require("./repository")
 
 const CommentsService = {};
 

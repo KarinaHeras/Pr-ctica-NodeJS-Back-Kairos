@@ -1,5 +1,5 @@
-import express from 'express';
-import OffensiveWordService from './service';
+const express = require('express')
+const OffensiveWordService = require('./service')
 
 const router = express.Router();
 
@@ -36,7 +36,7 @@ router.put('/:id', async(req, res, next) => {
         if (result !== null) {
             res.status(200).json(result);
         }else{
-            res.status(404).json({message: 'Recurso no encontrado'});
+            res.status(404).json({message: ''});
         }
     } catch (err) {
         console.log(err);

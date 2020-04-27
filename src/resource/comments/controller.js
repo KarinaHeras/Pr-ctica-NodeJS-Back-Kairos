@@ -1,6 +1,6 @@
-import express from 'express';
-import OffensiveValidator from '../../middlewares/offensive-validator';
-import CommentsService from './service';
+const  express = require('express')
+const OffensiveValidator = require('../../middlewares/offensive-validator')
+const CommentsService = require('./service')
 
 const router = express.Router();
 
