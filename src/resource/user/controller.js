@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose')
 const user = require('../apps/user')
-const servi = require('../services/servi')
+const service = require('./service')
 
 function sigUp( req, res){
  const user = new ({

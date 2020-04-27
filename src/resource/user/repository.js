@@ -8,9 +8,9 @@ const user = require('../apps/user')
 
 
 function getUser (req, res){
-    let author_name = req.params.author_name
+    let authorName = req.params.authorName
 
-    user.find(author_name, (err, user) => {
+    user.find(authorName, (err, user) => {
         
     
         if (err) return res.status(500).send({message: `Error al realizar la peticion: ${err} `}) 
