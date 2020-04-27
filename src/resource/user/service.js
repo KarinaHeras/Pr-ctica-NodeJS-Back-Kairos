@@ -1,57 +1,50 @@
 'use strict'
-const UserRepository = require("./repository")
 
-const UserService = {};
 
-userService.getAll = async () => {
-    try {
-        return await UserRepository.getAll();   
-    } catch (err) {
-        console.log(err);
+const jwt = require('jwt-simple')
+
+const moment = require('moment')
+
+function createToken (user){
+
+    const payload = {
+        sub: user._id,
+        ait: moment().unix(),
+        exp: moment().add(30, 'days').unix(),
+
+
     }
+
+     return jwt.encode(payload, confidb.SECRET_TOKEN)
+
+}
+function decodeToken(token){
+    const decode = new Promise((resolve, reject) =>{
+        try{
+            const payload = jwt.decode(token, confidb.SECRET_TOKEN)
+            if(payload.ex < moment().unix()){
+                reject({
+                    status: 401,
+                    message: 'El token ha expirado'
+
+                })
+            }
+            resolve(payload.sub)
+        }catch(err) {
+            reject({
+                status: 500,
+                message:'invalid Token'
+            })
+
+        }
+    })
+
+    return decode
 }
 
-UserService.getById = async (id) => {
-    try {
-        const user = await UserRepository.getById(id);
-        return user;
-    } catch (err) {
-        console.log(err);
-    }
-}
 
-UserService.addUser = async (user) => {
-    try {
-        return await UserRepository.addUser(user);
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-UserService.updateUser = async (id, user) => {
-    try {
-        return await UserRepository.updateUser(id, user);
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-UserService.deleteUser = async (id) => {
-    try{
-        return await UserRepository.deleteUser(id);
-    }catch(err){
-        console.log(err);
-    }
-}
-
-UserService.addComment = async (id, comment) => {
-    try {
-        return await UserRepository.addComment(id, comment);
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-export default UserService;
-
+module.exports = {
+    createToken, 
+    decodeToken
+} 
 
