@@ -1,10 +1,53 @@
-import bodyParser from 'body-parser';
+
+ const bodyParser = require('body-parser');
+const { config } = require('dotenv');
+const passport = require('passport');
+const BasicStrategy  = require('passport-http');
+const ExtractJwt, Strategy  = require('passport-jwt');
+const UsersRepository = require('./resources/users/repository');
+
+const settings = config();
 
 export default app => {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
-    SECRET_TOKEN : 'miclavedetokens'
+
+    app.use(passport.initialize());
+
+    passport.use(new BasicStrategy(async (username, password, done) => {
+        const user = await UsersRepository.getByUsername(username);
+        if (!user) {
+            return done(null, false, {message: 'User not found'});
+        }
+    
+        const verifyPass = await user.isValidPassword(password);
+        if (verifyPass) {
+            return done(null, user);
+        }else{
+            return done(null, false, {message: 'Incorrect password'});
+        }
+    }));
+
+    const jwtOpts = {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        SECRET_TOKEN : 'miclavedetokens'
+
+    }
+    
+    passport.use(new Strategy(jwtOpts, async (payload, done) => {
+        
+        var user = await UsersRepository.getByUsername(payload.username);
+        
+        if (user) {
+            return done(null, user);
+        } else {
+            return done(null, false, { message: 'User not found' });
+        }
+        
+    }) );
+    
+}
 }
 
 

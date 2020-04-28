@@ -1,4 +1,3 @@
-
 'use strict'
 
 
@@ -6,7 +5,7 @@
 
 //la ruta del schema de user
 const user = require('../apps/user')
-
+const mongoose = require('mongoose')
 
 function getUser (req, res){
     let author_name = req.params.author_name
@@ -63,7 +62,7 @@ function updateUser (req, res){
     let nameId = req.params.nameId
   let update = req.body
  user.findByIdAndUpdate(nameId, update, (err, userUpdate =>{
-    if (err) res.status(500).send({message: ` Error al actualizar el  user: ${err}`})
+    if (err) res.status(500).send({message: ` Error al actualizar el  usuario: ${err}`})
     res.status(200).send({ user: userUpdate })
  }) )
 },
@@ -74,9 +73,9 @@ function deleteUser (req, res){
  
 
  user.find(nameId, (err, nameId) => {
-     if (err) res.status(500).send({message: ` Error el buscar el user: ${err}`})
+     if (err) res.status(500).send({message: ` Error el buscar el usuario: ${err}`})
  user.remove( err => {
-     if (err) res.status(500).send({message: ` Error el bosar el user: ${err}`})
+     if (err) res.status(500).send({message: ` Error el buscar el usuario: ${err}`})
        res.status(200).send({menssage: `el user ha sido borrado`})
 
 

@@ -7,7 +7,6 @@ const service = require('./service')
 function sigUp( req, res){
  const user = new ({
  email: req.body.email,
- displayName: req.body.displayName,
  password: req.password
  })
 
@@ -25,9 +24,11 @@ user.find({email: req.body.email}, (err, user){
     
     req.user = user
     res.status(200).send({message: 'Te has registrado correctamente'})
-    
+}) 
+singUp.methods.isValidPassword = async function (password) {
+    return await bcrypt.compareTo(password, this.password);
+}
 
-})
 
 }
 

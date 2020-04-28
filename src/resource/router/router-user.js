@@ -1,18 +1,16 @@
 'use strict'
 const express = require('express')
-const userControll = require('../controllers/Conexion')
+const user = require('../controllers/Conexion')
 const post = express.Router()
 const userContr = require('../controllers/user')
 const auth = require('../../minddlewares/auth')
 
 
-
-
-post.get('/user',  userControll.getuser)
-post.get('/user/:author_name', userControll.getuser)
-post.post('/user',auth, userControll.saveuser)
-post.put('/user/:nameId',auth, userControll.updateuser)
-post.delete('/nameId', auth, userControll.deleteuser)
+post.get('/user',  user.getuser)
+post.get('/user/:author_name', user.getuser)
+post.post('/user',auth, user.saveuser)
+post.put('/user/:nameId',auth, user.updateuser)
+post.delete('/nameId', auth, user.deleteuser)
 post.post('/sigUp' , userContr, sigUp)
 post.post('/sinIn', userContr, sinIn)
 post.get('/private',auth, (req, res) => {
