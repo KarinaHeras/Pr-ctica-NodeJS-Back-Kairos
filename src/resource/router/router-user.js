@@ -1,21 +1,18 @@
 'use strict'
-const express = require('express')
-const user = require('../controllers/Conexion')
-const post = express.Router()
-const userContr = require('../controllers/user')
-const auth = require('../../minddlewares/auth')
+const express = require('express');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
+const router = express.Router();
 
-post.get('/user',  user.getuser)
-post.get('/user/:author_name', user.getuser)
-post.post('/user',auth, user.saveuser)
-post.put('/user/:nameId',auth, user.updateuser)
-post.delete('/nameId', auth, user.deleteuser)
-post.post('/sigUp' , userContr, sigUp)
-post.post('/sinIn', userContr, sinIn)
-post.get('/private',auth, (req, res) => {
-    res.status(200).send({message: 'Tienes acceso'})
-})
+router
+  .route("/")
+  .get(controller.getAllUsers)
+  .post(controller.createUser);
+router
+  .route("/:id")
+  .get(controller.getUser)
+  .put(controller.updateUser)
+  .delete(controller.deleteUser);
 
-
-module.exports = post
+  module.exports = router;

@@ -1,3 +1,6 @@
+'use strict'
+
+
 const Comment = require ('./model')
 
 const CommentRepository = {};

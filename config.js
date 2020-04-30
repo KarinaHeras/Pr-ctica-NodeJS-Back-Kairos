@@ -1,14 +1,15 @@
+'use strict'
 
  const bodyParser = require('body-parser');
-const { config } = require('dotenv');
 const passport = require('passport');
 const BasicStrategy  = require('passport-http');
-const ExtractJwt, Strategy  = require('passport-jwt');
+const Strategy = require('passport-http');
+const ExtractJwt = require('passport-jwt');
 const UsersRepository = require('./resources/users/repository');
 
 const settings = config();
 
-export default app => {
+module.export =  app => {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -48,7 +49,7 @@ export default app => {
     }) );
     
 }
-}
+
 
 
 

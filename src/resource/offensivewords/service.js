@@ -1,3 +1,5 @@
+'use strict'
+
 const OffensiveWordRepository  = require("./repository")
 
 const OffensiveWordService = {};

@@ -1,3 +1,5 @@
+'use strict'
+
 const CommentRepository = require("./repository")
 
 const CommentsService = {};

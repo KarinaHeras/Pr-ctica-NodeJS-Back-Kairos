@@ -1,30 +1,35 @@
-'use strict'
+// 'use strict'
 
-const request = require('supertest')
-import app from '../src/app';
+// const app = require('./server') // Link to your server file
+// const supertest = require('supertest')
+// const request = supertest(app)
+// describe('Post Enpoint', () => {
+  
+// app.get('/test', async (req, res) => {
+//     res.json({message: 'pass!'})
+//   })
+
+//   it('gets the test endpoint', async done => {
+//     const response = await request.get('/test')
+  
+//     expect(response.status).toBe(200)
+//     expect(response.body.message).toBe('pass!')
+//     done()
+//   },
+//     app.post('/signup', async (req, res) => {
+//       const { name, email } = req.body 
+//       const user = new User({name, email})
+//       const ret = await user.save()
+//       res.json(ret)
+//     }),
+//     it('Debería guardar a la usuario en la base de datos', async done => {
+//       const res = await request.post('/signup')
+//         .send({
+//           name: 'Karina',
+//           email: 'testing@gmail.com'
+//         })
+//       done()
+//     })
 
 
-describe('Post Enpoint', () => {
-
-    it('CRUD POST', async () => {
-        const server = request(app);
-
-        const newPost = {
-            title: 'test',
-            content: 'test',
-            nameAuthor: 'author',
-            nickname: 'test'
-        }
-
-        const result = await server.post('/post')
-        .type('form')
-        .send(newPost)
-        .expect(201);
-
-        await server
-        .get('/post')
-        .expect(200)
-
-    })
-
-})
+    

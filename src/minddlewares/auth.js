@@ -1,6 +1,6 @@
 'use strict'
 
-const service = require('..//App/services/servi')
+const service = require('..//App/services/service')
 
 
 function isAuth(req, res, next){

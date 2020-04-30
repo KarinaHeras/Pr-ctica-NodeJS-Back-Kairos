@@ -1,13 +1,16 @@
+
+'use strict'
+
 const express = require('express')
 const appConfig = require('./config')
-const connectToDb = require('./src/App/BBDD/conexion')
-const routes = require('./routes')
+const contention = require('./src/resource/BBDD/conexion')
+const routes = require('./src/resource/router/router-user')
 
 let app = express();
 
-connectToDb();
+contention();
 appConfig(app);
 routes(app);
 
 
-export default app;
+module.export  = app;

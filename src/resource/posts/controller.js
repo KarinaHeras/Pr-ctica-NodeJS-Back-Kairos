@@ -1,3 +1,6 @@
+
+'use strict'
+
 const express = require('express')
 const OffensiveValidator = require('../../middlewares/offensive-validator')
 const PostService = require('./service')

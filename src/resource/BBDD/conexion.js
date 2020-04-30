@@ -1,4 +1,5 @@
-import { config } from 'dotenv';
+'use strict'
+
 const express = require('express');
 var fs = require('fs');
 var https = require('https');
@@ -39,6 +40,21 @@ const populateOffensiveWords = async () => {
         console.log(err);
     }
 }
+
+const populateAdminUsers = async () => {
+    try {
+        const adminUsers = await UsersRepository.getAllAdmins();
+        if (adminUsers.length === 0) {
+            console.log('No existe ningun usuario admin');
+            UsersRepository.addUser({username: 'admin1', password: '1234', role: roles.Roles.admin});
+            UsersRepository.addUser({username: 'admin2', password: '5678', role: roles.Roles.admin});
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
 
 
 

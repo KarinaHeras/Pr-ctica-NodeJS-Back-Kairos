@@ -1,3 +1,6 @@
+
+'use strict'
+
 const CommentRepository = require('../comments/repository')
 const Post = require('./model')
 

@@ -1,29 +1,29 @@
 version: '3'
 services:
-  Practica-NodeJS-Back-Kairos :
+  practica-nodejs-back-kairos:
     build:
       context: .
       dockerfile: Dockerfile-machine
     networks:
       - mongo_net
-  my-mongodb:
+      
+  mongodb:
     image: mongo:4.2.3-bionic
-    container_name: my-mongodb
     ports:
       - 27018:27017
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
     volumes:
-      # seeding scripts
       - ./mongo-entrypoint:/docker-entrypoint-initdb.d
-      # named volumes
       - mongodb:/data/db
       - mongoconfig:/data/configdb
     networks:
       - mongo_net
+
 volumes:
   mongodb:
   mongoconfig:
+
 networks:
   mongo_net:

@@ -1,93 +1,52 @@
 'use strict'
-
-
-
-
 //la ruta del schema de user
 const user = require('../apps/user')
 const mongoose = require('mongoose')
 
-function getUser (req, res){
-    let author_name = req.params.author_name
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+const UserModel = require('../model/model');
 
-    user.find(author_name, (err, user) => {
-        
+// Crea un middleware de pasaporte para manejar el registro de usuarios
+passport.use('signup', new localStrategy({
+  usernameField : 'email',
+  passwordField : 'password'
+}, async (email, password, done) => {
+    try {
+      //Save the information provided by the user to the the database
+      const user = await UserModel.create({ email, password });
+      //Send the user information to the next middleware
+      return done(null, user);
+    } catch (error) {
+      done(error);
+    }
+}));
+
+//Create a passport middleware to handle User login
+passport.use('login', new localStrategy({
+  usernameField : 'email',
+  passwordField : 'password'
+}, async (email, password, done) => {
+  try {
+
+// Encuentra el usuario asociado con el correo electrónico proporcionado
+    const user = await UserModel.findOne({ email });
+    if( !user ){
+
+// Si el usuario no se encuentra en la base de datos, devuelve un mensaje
+      return done(null, false, { message : 'User not found'});
+    }
+// Valide la contraseña y asegúrese de que coincida con el hash correspondiente almacenado en la base de datos
+    // Si las contraseñas coinciden, devuelve un valor de verdadero.
+    const validate = await user.isValidPassword(password);
+    if( !validate ){
+      return done(null, false, { message : 'Wrong Password'});
+    }
+
+// Enviar la información del usuario al middleware
+    return done(null, user, { message : 'Logged in Successfully'});
+  } catch (error) {
+    return done(error);
+  }
+}));
     
-        if (err) return res.status(500).send({message: `Error al realizar la peticion: ${err} `}) 
-    
-            if (user) return res.status(404).send({message: `Error el name de autor no existe`})
-            
-                res.status(200).send({ user})
-            
-        
-},
-
-function getUser (req, res){
-    user.find({}, (err, user => {
-        if(err) return res.status(500).send({ message: `Error al realizar la petición`})
-        if(!user) return res.send.status(404).send({ menssage: `No existe el user`})
-    
-       }))
-   
-       res.status(200, {user: []} )
-    
-},
-
-
-function saveUser(req, res){
-
-    console.log('POST/api/user')
-    console.log(req.body)
-
-    let user = new user()
-    user.nameAuthor = req.body.nameAuthor
-    user.nickname = req.body.nickname
-    user.title = req.body.title
-    user.text = req.body.text
-    user.content= req.body.content
-    user.commet = re.body.commet
-
-    user.save((err, userSchema) => {
-        if (err) res.status(500).send({message: `Error al salvar en la base de datos: ${err} `}) 
-        
-          
-            
-            res.status(200).send({user: userSchema})
-        
-    })
-
-},
-
-function updateUser (req, res){
-    let nameId = req.params.nameId
-  let update = req.body
- user.findByIdAndUpdate(nameId, update, (err, userUpdate =>{
-    if (err) res.status(500).send({message: ` Error al actualizar el  usuario: ${err}`})
-    res.status(200).send({ user: userUpdate })
- }) )
-},
-
-
-function deleteUser (req, res){
-    let nameId = req.params.nameId
- 
-
- user.find(nameId, (err, nameId) => {
-     if (err) res.status(500).send({message: ` Error el buscar el usuario: ${err}`})
- user.remove( err => {
-     if (err) res.status(500).send({message: ` Error el buscar el usuario: ${err}`})
-       res.status(200).send({menssage: `el user ha sido borrado`})
-
-
-    })
-},
-
-
-module.exports = {
-    getUser,
-    getUser,
-    saveUser,
-    updateUser,
-    deleteUser
-
-}

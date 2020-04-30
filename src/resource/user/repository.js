@@ -1,6 +1,6 @@
 'use strict'
 
-const roles = require('./ load_admins');
+const roles = require('./load_admins');
 const User = require('./model');
 
 const UsersRepository = {};

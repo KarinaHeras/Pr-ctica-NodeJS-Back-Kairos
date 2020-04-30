@@ -8,5 +8,3 @@ RUN apk --no-cache add openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpi
 RUN apk update
 RUN apk add --no-cache git openssh
 
-ADD git_key /root/.ssh/id_rsa
-ADD git_key.pub /root/.ssh/id_rsa.pub

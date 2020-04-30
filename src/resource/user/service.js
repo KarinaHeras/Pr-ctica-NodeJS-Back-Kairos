@@ -15,17 +15,17 @@ function createToken (user){
 
     }
 
-     return jwt.encode(payload, confidb.SECRET_TOKEN)
+     return jwt.encode(payload, config.SECRET_TOKEN)
 
 }
 function decodeToken(token){
     const decode = new Promise((resolve, reject) =>{
         try{
-            const payload = jwt.decode(token, confidb.SECRET_TOKEN)
+            const payload = jwt.decode(token, config.SECRET_TOKEN)
             if(payload.ex < moment().unix()){
                 reject({
                     status: 401,
-                    message: 'El token ha expirado'
+                    message: 'El token ha expired'
 
                 })
             }

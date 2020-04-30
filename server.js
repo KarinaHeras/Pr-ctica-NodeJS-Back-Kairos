@@ -1,5 +1,6 @@
-import { config } from 'dotenv';
-import app from './app';
+'use strict'
+
+const app = require('./app');
 
 
 const settings = config();

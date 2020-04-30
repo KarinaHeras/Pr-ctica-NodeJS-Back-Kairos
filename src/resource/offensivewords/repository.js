@@ -1,3 +1,5 @@
+'use strict'
+
 const OffensiveWord = require('./model')
 
 const OffensiveWordRepository = {};
