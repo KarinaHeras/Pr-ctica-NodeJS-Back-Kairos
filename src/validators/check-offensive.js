@@ -22,5 +22,5 @@ function isOffensiveWordLevel(words, ow, level) {
     return words.includes(ow.word.toLowerCase()) && Number.parseInt(ow.level) <= Number.parseInt(level);
 }
 
-export default CheckOffensiveValidator;
+module.exports = CheckOffensiveValidator;
 

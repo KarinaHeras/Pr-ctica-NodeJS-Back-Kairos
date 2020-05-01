@@ -1,6 +1,6 @@
 'use strict'
 
-const CheckOffensiveValidator = require('./check-offensive')
+const CheckOffensiveValidator = require('./check-offensive.js')
 
 describe('Check offensive word', () => {
 

@@ -1,7 +1,7 @@
 'use strict'
 
 const request = require('supertest')
-const {User} = require('../model/User') 
+const {User} = require('../resource/user/model.js') 
 const app = require('../app');
 
 

@@ -1,9 +1,9 @@
-'use strict'
+console.log(module.paths)
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt-nodejs')
-const roles = require('./load_admins')
+const roles = require('src/resource/user/load_admins.js')
 const User = require('../model/User') 
 
 const userSchema = new Schema({
@@ -42,4 +42,4 @@ const UserModel = mongoose.model('user',UserSchema);
 module.exports = UserModel; 
 
 
-module.exports = mongoose.model('user' userSchema)
+module.exports = mongoose.model('user', userSchema)

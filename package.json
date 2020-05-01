@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Práctica NodeJS Back Funcionalidad Se desea implementar un servicio para la gestión de un blog con persistencia y API REST. Las entradas del blog podrán tener comentarios y para evitar la publicación de aquellos que puedan ser ofensivos, el servicio deberá incluir internamente un validador.",
   "main": "app.js",
+  "directories": {
+    "test": "src/test"
+  },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jest": "^25.5.2",
@@ -15,7 +19,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js"
   },
   "repository": {
