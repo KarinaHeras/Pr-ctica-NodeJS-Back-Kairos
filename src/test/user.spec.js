@@ -2,7 +2,7 @@
 
 const request = require('supertest')
 const {User} = require('../resource/user/model.js') 
-const app = require('../app');
+const app = require('../../app');
 
 
 describe("api/users", () => {

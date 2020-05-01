@@ -5,7 +5,7 @@ const passport = require('passport');
 const BasicStrategy  = require('passport-http');
 const Strategy = require('passport-http');
 const ExtractJwt = require('passport-jwt');
-const UsersRepository = require('./resources/users/repository');
+const UsersRepository = require('./resource/user/repository');
 
 const settings = config();
 

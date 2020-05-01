@@ -3,8 +3,8 @@ console.log(module.paths)
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt-nodejs')
-const roles = require('src/resource/user/load_admins.js')
-const User = require('../model/User') 
+const roles = require('./load_admins.js')
+//const User = require('../model/User') 
 
 const userSchema = new Schema({
     name: String,
@@ -13,11 +13,11 @@ const userSchema = new Schema({
       require: true, 
       unique: true,
     },
-    role: { type: 'String', enum: [roles.Roles.admin, roles.Roles.publisher, ] }
+    role: { type: 'String', enum: [roles.admin, roles.publisher] }
 }, { collection: 'users' });
 
 
-UserSchema.pre('save', async function(next){
+userSchema.pre('save', async function(next){
   //'esto 'se refiere  al punto de guardarse
   const user = this;
   //Hash la contraseña de 10 digitos
@@ -29,7 +29,7 @@ UserSchema.pre('save', async function(next){
 });
 
 // Usaremos esto más adelante para asegurarnos de que el usuario que intenta iniciar sesión tenga las credenciales correctas
-UserSchema.methods.isValidPassword = async function(password){
+userSchema.methods.isValidPassword = async function(password){
   const user = this;
   
 // Comprueba la contraseña enviada por el usuario para iniciar sesión y comprueba si la contraseña almacenada en ella bbdd
@@ -37,7 +37,7 @@ UserSchema.methods.isValidPassword = async function(password){
   return compare;
 }
 
-const UserModel = mongoose.model('user',UserSchema);
+const UserModel = mongoose.model('user',userSchema);
 
 module.exports = UserModel; 
 

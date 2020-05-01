@@ -19,4 +19,4 @@ UsersRepository.addUser = async function(user) {
     return await newUser.save();
 }
 
-export default UsersRepository;
+module.exports= UsersRepository;
