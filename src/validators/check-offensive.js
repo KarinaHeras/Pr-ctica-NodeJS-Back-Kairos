@@ -1,12 +1,10 @@
-'use strict'
-
 const CheckOffensiveValidator = {};
 
 CheckOffensiveValidator.check = (cad, offensivewords, level) => {
     console.log('LEVEL: ' + level);
     const words = cad.toLowerCase().split(' ');
     let offensivesFound = [];
-        offensivewords.map(ow => {
+    offensivewords.map(ow => {
         if (isOffensiveWordLevel(words, ow, level)) {
             offensivesFound = [...offensivesFound, ow];
         }
@@ -22,5 +20,5 @@ function isOffensiveWordLevel(words, ow, level) {
     return words.includes(ow.word.toLowerCase()) && Number.parseInt(ow.level) <= Number.parseInt(level);
 }
 
-module.exports = CheckOffensiveValidator;
+export default CheckOffensiveValidator;
 
