@@ -24,7 +24,7 @@ PostService.updatePost = async (id, postUpdate, user) => {
                 return await PostRepository.updatePost(id, postUpdate);
             }else{
                 const unauthorizedError = new Error('Este post no es tuyo');
-                unauthorizedError.code = 401;
+                unauthorizedError.code = 200;
                 throw unauthorizedError;
             }
         }else{

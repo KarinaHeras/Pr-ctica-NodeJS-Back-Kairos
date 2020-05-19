@@ -1,18 +1,17 @@
+const User = require('./model');
 
-const UsersRepository = {};
-
-UsersRepository.getAllAdmins = async () => {
-    return await User.find({role: RoleEnum.ROLES.ADMIN});
+exports.findUser = function(username, password) {
+    return User.findOne({ username }).exec().then(async function (user) {
+        return user && await user.isValidPassword(password)
+            ? user
+            : null;
+    });
 }
 
-UsersRepository.getByUsername = async (username) => {
-    const user = await User.findOne({username});
-    return user;
+exports.createUser = function(body) {
+    return User.create(body);
 }
 
-UsersRepository.addUser = async function(user) {
-    const newUser = new User(user);
-    return await newUser.save();
+exports.deleteUserById = function(userId) {
+    return User.findByIdAndDelete(userId).exec();
 }
-
-export default UsersRepository;

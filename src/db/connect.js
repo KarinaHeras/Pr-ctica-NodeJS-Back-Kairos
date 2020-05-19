@@ -18,7 +18,6 @@ const connectToDb = async () => {
                 useFindAndModify: false
             });
         populateOffensiveWords();
-      
     } catch (err) {
         console.log(err);
     }
@@ -38,6 +37,8 @@ const populateOffensiveWords = async () => {
         console.log(err);
     }
 }
+
+
 
 
 

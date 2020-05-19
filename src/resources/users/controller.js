@@ -1,24 +1,34 @@
 import express from 'express';
 import passport from 'passport';
-import enumRoles from './enum.roles';
-import UsersService from './service';
+import services from './service';
+
 
 const router = express.Router();
 
-router.post('/', passport.authenticate('jwt', {session: false}), async (req, res, next) => {
-    try {
-        const userData = req.body;
-        const user = req.user;
-        if (user.role === enumRoles.ROLES.ADMIN) {
-            const userAdded = await UsersService.addUser(userData);
-            res.status(201).json(userAdded);
-        }else{
-            res.status(401).json({message: 'No eres admin'});
+router.post('/', (req, res) => {
+    const body = req.body;
+    services.createUser(body)
+    .then((result) => {
+        res.json({ username: result.username, id: result._id });
+    })
+    .catch(() => {
+        res.status(500).end();
+    });
+});
+
+router.delete('/:userId', passport.authenticate('jwt', { session : false }),(req, res) => {
+    const userId = req.params.userId;
+    services.deleteUserById(userId)
+    .then((result) => {
+        if (result && !result.error) {
+            res.json({ id: result._id });
+        } else {
+            res.status(result.status).json({ message: result.message });
         }
-    } catch (err) {
-        res.status(500).json({message: 'Error'});
-    }
+    })
+    .catch(() => {
+        res.status(500).end();
+    });
+});
 
-})
-
-export default router;
+exports.router = router;

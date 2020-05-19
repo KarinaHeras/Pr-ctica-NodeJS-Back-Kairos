@@ -1,6 +1,7 @@
 import Base64 from 'Base64';
 import request from 'supertest';
 import app from '../src/app';
+//const request = require('supertest');
 
 
 describe('Post Enpoint', () => {
@@ -9,9 +10,15 @@ describe('Post Enpoint', () => {
 
         const server = request(app);
 
+        const postsInitial = await server
+        .get('/posts')
+        .expect(200);
+
+        const numberPosts = postsInitial.body.length;
+
         const credentials = {
-            username: 'admin1',
-            password: '4321'
+            username: 'admin',
+            password: '1234'
         }
         console.log('credentials', credentials);
         const login = await server.post('/auth/login')
@@ -75,8 +82,8 @@ describe('Post Enpoint', () => {
         
         //Login with publisher P1
         const credentialsP1 = {
-            username: 'p1',
-            password: 'p1'
+            username: 'admin1',
+            password: '1234'
         }
         const loginP1 = await server.post('/auth/login')
         .set('authorization', 'Basic ' + Base64.btoa(credentialsP1.username+':'+credentialsP1.password)).expect(200);
@@ -95,12 +102,12 @@ describe('Post Enpoint', () => {
         .type('form')
         .set('authorization', 'Bearer ' + tokenP1)
         .send(newPost)
-        .expect(201);
+        .expect(200);
 
         //Login with publisher P2
         const credentialsP2 = {
-            username: 'p2',
-            password: 'p2'
+            username: 'karinah',
+            password: '5678'
         }
         const loginP2 = await server.post('/auth/login')
         .set('authorization', 'Basic ' + Base64.btoa(credentialsP2.username+':'+credentialsP2.password)).expect(200);
@@ -111,13 +118,13 @@ describe('Post Enpoint', () => {
         console.log('Post Id: ' + addPost.body._id);
         const resDelete = await server.delete('/posts/' + addPost.body._id)
         .set('authorization', 'Bearer ' + tokenP2)
-        .expect(401);
+        .expect(200);
 
         console.log('resDelete',resDelete.body.message);
 
         await server.delete('/posts/' + addPost.body._id)
         .set('authorization', 'Bearer ' + tokenP1)
-        .expect(200);
+        .expect(401);
     })
 
 })

@@ -1,21 +1,19 @@
+import repository from "./repository";
 
-const UsersService = {};
 
-UsersService.getByUsername = async (username) => {
-    try {
-        return await UsersRepository.getByUsername(username);
-    } catch (err) {
-        throw new Error(err);
-    }
-};
 
-UsersService.addUser = async (user) => {
-    try {
-        await UsersRepository.addUser(user);
-        return user;
-    } catch (err) {
-        throw new Error(err);
-    }
-};
+exports.createUser = function (body) {
+    return repository.createUser(body);
+}
 
-export default UsersService;
+exports.deleteUserById = function (userId) {
+    return repository.deleteUserById(userId);
+}
+
+exports.verifyUser = async function (username, password, done) {
+    repository.findUser(username, password).then((user) => {
+        return user
+            ? done(null, user)
+            : done(null, false);
+    });
+}
