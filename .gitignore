@@ -1,7 +1,6 @@
-
-node_modules
-coverage
-dist-server
+node_modules/
+coverage/
+dist-server/
 
 git_key
 git_key.pub
